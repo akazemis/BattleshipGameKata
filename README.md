@@ -16,7 +16,6 @@ var boardHeight = 10;
 var battleshipBoardTracker = new BoardStateTracker(boardWidth, boardHeight);
 
 2. Create a battleship:
-
 ```csharp
 var shipFactory = new ShipFactory();
 var oneDimensionShip = new OneDimensionShip() {Orientation = ShipOrientation.Horizontal, StartPosition = new Position(2,3), Length = 3};
