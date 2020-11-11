@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace BattleShip
 {
+    /// <summary>
+    /// Implements the battleship board state tracking strategy
+    /// </summary>
     public class BoardStateTracker : IBoardStateTracker
     {
         private readonly BoardState _boardState;
@@ -27,10 +30,6 @@ namespace BattleShip
 
         public BoardStatus GetBoardState()
         {
-            if (_boardState == null)
-            {
-                return BoardStatus.NotInitiated;
-            }
             if (_boardState.Ships == null || !_boardState.Ships.Any())
             {
                 return BoardStatus.Empty;
