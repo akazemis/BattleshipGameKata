@@ -11,21 +11,26 @@ namespace BattleShip
             ValidateOneDimensionShip(oneDimensionShip);
             var ship = new Ship();
             var startPosition = oneDimensionShip.StartPosition;
-            var rowOffset = oneDimensionShip.Orientation == ShipOrientation.Vertical
-                            ? 1
-                            : 0;
-            var columnOffset = oneDimensionShip.Orientation == ShipOrientation.Horizontal
-                               ? 1
-                               : 0;
-            var row = startPosition.Row;
-            var column = startPosition.Column;
+            
+            var position = startPosition;
+            var offsetInEachStep = GetPositionOffset(oneDimensionShip.Orientation);
             for (int i = 0; i < oneDimensionShip.Length; i++)
             {
-                ship.Coordinates.Add(new Position(column, row));
-                row += rowOffset;
-                column += columnOffset;
+                ship.Coordinates.Add(position);
+                position = position + offsetInEachStep;
             }
             return ship;
+        }
+
+        private Position GetPositionOffset(ShipOrientation shipOrientation)
+        {
+            var rowOffset = shipOrientation == ShipOrientation.Vertical
+                            ? 1
+                            : 0;
+            var columnOffset = shipOrientation == ShipOrientation.Horizontal
+                               ? 1
+                               : 0;
+            return new Position(columnOffset, rowOffset);
         }
 
         private void ValidateOneDimensionShip(OneDimensionShip oneDimensionShip)
