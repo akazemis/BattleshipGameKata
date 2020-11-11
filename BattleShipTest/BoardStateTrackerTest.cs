@@ -151,6 +151,179 @@ namespace BattleShipTest
 
         #endregion
 
+        #region GetBoardStatus
+
+        [Fact]
+        public void GetBoardStatus_WhenBoardHasNoShips_ReturnsEmpty()
+        {
+            // Arrange
+            var sutStateTracker = new BoardStateTracker(LargeBoardWidth, LargeBoardHeight);
+
+            // Act
+            var result = sutStateTracker.GetBoardStatus();
+
+            // Assert
+            result.Should().Be(BoardStatus.Empty);
+        }
+
+        [Theory]
+        [MemberData(nameof(GetAllShipsDestroyedList))]
+        public void GetBoardStatus_WhenAllShipsHit_ReturnsAllShipsDestroyed(List<Ship> shipsInBoard)
+        {
+            // Arrange
+            var sutStateTracker = new BoardStateTracker(LargeBoardWidth, LargeBoardHeight);
+            shipsInBoard.ForEach(ship => sutStateTracker.AddShip(ship));
+
+            // Act
+            var result = sutStateTracker.GetBoardStatus();
+
+            // Assert
+            result.Should().Be(BoardStatus.AllShipsDestroyed);
+        }
+
+        [Theory]
+        [MemberData(nameof(GetNotAllShipsDestroyedList))]
+        public void GetBoardStatus_WhenSomeShipsAreNotFullyDestroyed_ReturnsShipsAvailable(List<Ship> shipsInBoard)
+        {
+            // Arrange
+            var sutStateTracker = new BoardStateTracker(LargeBoardWidth, LargeBoardHeight);
+            shipsInBoard.ForEach(ship => sutStateTracker.AddShip(ship));
+
+            // Act
+            var result = sutStateTracker.GetBoardStatus();
+
+            // Assert
+            result.Should().Be(BoardStatus.ShipsAvailable);
+        }
+
+        #endregion
+
+        public static IEnumerable<object[]> GetAllShipsDestroyedList()
+        {
+            yield return new object[]
+            {
+                new List<Ship>()
+                {
+                    new Ship(){
+                        Coordinates = new HashSet<Position>(){ GetPosition(1,1) },
+                        HitCoordinates= new HashSet<Position>(){ GetPosition(1,1) }
+                    }
+                }
+            };
+            yield return new object[]
+            {
+                new List<Ship>()
+                {
+                    new Ship()
+                    {
+                        Coordinates = new HashSet<Position>(){ GetPosition(1,1) },
+                        HitCoordinates= new HashSet<Position>(){ GetPosition(1,1) }
+                    },
+                    new Ship()
+                    {
+                        Coordinates = new HashSet<Position>(){ GetPosition(1,2), GetPosition(1,3) },
+                        HitCoordinates= new HashSet<Position>(){ GetPosition(1,2), GetPosition(1,3) }
+                    }
+                }
+            };
+            yield return new object[]
+            {
+                new List<Ship>()
+                {
+                    new Ship()
+                    {
+                        Coordinates = Enumerable.Range(4,10).Select(num => GetPosition(2, num)).ToHashSet(),
+                        HitCoordinates = Enumerable.Range(4,10).Select(num => GetPosition(2, num)).ToHashSet()
+                    }
+                }
+            };
+            yield return new object[]
+            {
+                 new List<Ship>()
+                {
+                    new Ship()
+                    {
+                        Coordinates = Enumerable.Range(4,10).Select(num => GetPosition(5, num)).ToHashSet(),
+                        HitCoordinates = Enumerable.Range(4,10).Select(num => GetPosition(5, num)).ToHashSet()
+                    }
+                }
+            };
+            yield return new object[]
+           {
+                 new List<Ship>()
+                {
+                    new Ship()
+                    {
+                        Coordinates = Enumerable.Range(4,10).Select(num => GetPosition(num, num)).ToHashSet(),
+                        HitCoordinates = Enumerable.Range(4,10).Select(num => GetPosition(num, num)).ToHashSet()
+                    }
+                }
+           };
+        }
+
+        public static IEnumerable<object[]> GetNotAllShipsDestroyedList()
+        {
+            yield return new object[]
+            {
+                new List<Ship>()
+                {
+                    new Ship(){
+                        Coordinates = new HashSet<Position>(){ GetPosition(1,1) }
+                    }
+                }
+            };
+            yield return new object[]
+            {
+                new List<Ship>()
+                {
+                    new Ship()
+                    {
+                        Coordinates = new HashSet<Position>(){ GetPosition(1,1) },
+                        HitCoordinates= new HashSet<Position>(){ GetPosition(1,1) }
+                    },
+                    new Ship()
+                    {
+                        Coordinates = new HashSet<Position>(){ GetPosition(1,2), GetPosition(1,3) },
+                        HitCoordinates= new HashSet<Position>(){ GetPosition(1,2) }
+                    }
+                }
+            };
+            yield return new object[]
+            {
+                new List<Ship>()
+                {
+                    new Ship()
+                    {
+                        Coordinates = Enumerable.Range(4,10).Select(num => GetPosition(2, num)).ToHashSet(),
+                        HitCoordinates = Enumerable.Range(4,8).Select(num => GetPosition(2, num)).ToHashSet()
+                    }
+                }
+            };
+            yield return new object[]
+            {
+                 new List<Ship>()
+                {
+                    new Ship()
+                    {
+                        Coordinates = Enumerable.Range(6,10).Select(num => GetPosition(5, num)).ToHashSet(),
+                        HitCoordinates = Enumerable.Range(6,8).Select(num => GetPosition(5, num)).ToHashSet()
+                    }
+                }
+            };
+            yield return new object[]
+            {
+                 new List<Ship>()
+                {
+                    new Ship()
+                    {
+                        Coordinates = Enumerable.Range(6,10).Select(num => GetPosition(num, num)).ToHashSet(),
+                        HitCoordinates = Enumerable.Range(6,8).Select(num => GetPosition(num, num)).ToHashSet()
+                    }
+                }
+            };
+        }
+
+
         public static IEnumerable<object[]> GetAttacksWithExpectedHit()
         {
             yield return new object[]

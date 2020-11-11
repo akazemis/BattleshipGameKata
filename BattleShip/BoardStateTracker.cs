@@ -28,7 +28,7 @@ namespace BattleShip
             _boardState.Ships.Add(ship);
         }
 
-        public BoardStatus GetBoardState()
+        public BoardStatus GetBoardStatus()
         {
             if (_boardState.Ships == null || !_boardState.Ships.Any())
             {

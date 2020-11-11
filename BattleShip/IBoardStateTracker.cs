@@ -3,7 +3,7 @@
     public interface IBoardStateTracker
     {
         void AddShip(Ship ship);
-        BoardStatus GetBoardState();
+        BoardStatus GetBoardStatus();
         AttackResult TakeAttack(Position position);
     }
 }
