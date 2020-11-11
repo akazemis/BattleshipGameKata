@@ -14,6 +14,7 @@ A simple code kata to implement the battleship game. The idea here was to implem
 var boardWidth = 10;
 var boardHeight = 10;
 var battleshipBoardTracker = new BoardStateTracker(boardWidth, boardHeight);
+```
 
 2. Create a battleship:
 ```csharp
