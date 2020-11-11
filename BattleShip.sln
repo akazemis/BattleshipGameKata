@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30320.27
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleShip", "BattleShip\BattleShip.csproj", "{66FA0FDE-8021-4A5F-8326-C8ED7C22AC2A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleShipTest", "BattleShipTest\BattleShipTest.csproj", "{105DCC43-D1D2-4086-BC09-DA696D946C82}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{66FA0FDE-8021-4A5F-8326-C8ED7C22AC2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66FA0FDE-8021-4A5F-8326-C8ED7C22AC2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66FA0FDE-8021-4A5F-8326-C8ED7C22AC2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66FA0FDE-8021-4A5F-8326-C8ED7C22AC2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{105DCC43-D1D2-4086-BC09-DA696D946C82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{105DCC43-D1D2-4086-BC09-DA696D946C82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{105DCC43-D1D2-4086-BC09-DA696D946C82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{105DCC43-D1D2-4086-BC09-DA696D946C82}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7E79FE40-9198-40AB-8888-2621FD9F80EF}
+	EndGlobalSection
+EndGlobal
