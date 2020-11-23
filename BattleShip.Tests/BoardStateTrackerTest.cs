@@ -203,6 +203,7 @@ namespace BattleShipTest
             // Arrange
             var sutStateTracker = new BoardStateTracker(LargeBoardWidth, LargeBoardHeight);
             intactShips.ForEach(ship => sutStateTracker.AddShip(ship));
+            // Take Attack on all positions
             intactShips.ForEach(ship => ship.Coordinates.ToList().ForEach(coordinates => sutStateTracker.TakeAttack(coordinates)));
 
             // Act
