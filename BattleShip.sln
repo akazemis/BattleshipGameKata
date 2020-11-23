@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleShip", "BattleShip\BattleShip.csproj", "{66FA0FDE-8021-4A5F-8326-C8ED7C22AC2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleShipTest", "BattleShipTest\BattleShipTest.csproj", "{105DCC43-D1D2-4086-BC09-DA696D946C82}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleShipTest", "BattleShip.Tests\BattleShip.Tests.csproj", "{105DCC43-D1D2-4086-BC09-DA696D946C82}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

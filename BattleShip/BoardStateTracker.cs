@@ -54,6 +54,7 @@ namespace BattleShip
             {
                 if (CoordinateHits(ship, position))
                 {
+                    ship.HitCoordinates.Add(position);
                     return AttackResult.Hit;
                 }
             }

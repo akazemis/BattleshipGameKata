@@ -196,7 +196,68 @@ namespace BattleShipTest
             result.Should().Be(BoardStatus.ShipsAvailable);
         }
 
+        [Theory]
+        [MemberData(nameof(GetIntactShipListCollection))]
+        public void GetBoardStatus_WhenAllShipsAreFullyAttacked_ReturnsAllShipsDestroyedStatus(List<Ship> intactShips)
+        {
+            // Arrange
+            var sutStateTracker = new BoardStateTracker(LargeBoardWidth, LargeBoardHeight);
+            intactShips.ForEach(ship => sutStateTracker.AddShip(ship));
+            intactShips.ForEach(ship => ship.Coordinates.ToList().ForEach(coordinates => sutStateTracker.TakeAttack(coordinates)));
+
+            // Act
+            var result = sutStateTracker.GetBoardStatus();
+
+            // Assert
+            result.Should().Be(BoardStatus.AllShipsDestroyed);
+        }
+
+        [Theory]
+        [MemberData(nameof(GetIntactShipListCollection))]
+        public void GetBoardStatus_WhenSomeShipsAreNotFullyAttacked_ReturnsShipsAvailableStatus(List<Ship> intactShips)
+        {
+            // Arrange
+            var sutStateTracker = new BoardStateTracker(LargeBoardWidth, LargeBoardHeight);
+            intactShips.ForEach(ship => sutStateTracker.AddShip(ship));
+            // Take Attack on some positions (every other position)
+            int i = 1;
+            intactShips.ForEach(ship => ship.Coordinates.ToList().ForEach(coordinate =>
+            {
+                if (i % 2 == 0)
+                {
+                    sutStateTracker.TakeAttack(coordinate);
+                }
+                i++;
+            }));
+
+            // Act
+            var result = sutStateTracker.GetBoardStatus();
+
+            // Assert
+            result.Should().Be(BoardStatus.ShipsAvailable);
+        }
+
         #endregion
+
+        public static IEnumerable<object[]> GetIntactShipListCollection()
+        {
+            yield return new object[]
+           {
+                new List<Ship>()
+                {
+                    new Ship(){Coordinates = new HashSet<Position>(){ GetPosition(1,1)}},
+                    new Ship(){Coordinates = new HashSet<Position>(){ GetPosition(2,2)}}
+                }
+           };
+            yield return new object[]
+            {
+                new List<Ship>()
+                {
+                    new Ship(){Coordinates = new HashSet<Position>(){ GetPosition(1,1), GetPosition(1,2), GetPosition(1,3)}},
+                    new Ship(){Coordinates = new HashSet<Position>(){ GetPosition(2,1), GetPosition(2,2), GetPosition(2,3)}}
+                }
+            };
+        }
 
         public static IEnumerable<object[]> GetAllShipsDestroyedList()
         {
@@ -323,7 +384,6 @@ namespace BattleShipTest
             };
         }
 
-
         public static IEnumerable<object[]> GetAttacksWithExpectedHit()
         {
             yield return new object[]
@@ -387,7 +447,6 @@ namespace BattleShipTest
                 new Position(7,60)
             };
         }
-
 
         public static IEnumerable<object[]> GetOutOfBoundariesShips()
         {
